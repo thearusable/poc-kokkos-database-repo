@@ -17,105 +17,19 @@ jobs:
         uses: actions/checkout@v3
       - name: clone benchamrk monitor
         run: |
-          echo "${pwd}"
+          pwd
           git clone https://github.com/bensanmorris/benchmark_monitor.git
       - name: prepare python env
         run: |
-          echo "${pwd}"
+          pwd
           cd benchmark_monitor
           pip install -r requirements.txt
-
-
-  # CI:
-  #   continue-on-error: true
-  #   strategy:
-  #     matrix:
-  #       distro: ['fedora:latest']
-  #       cxx: ['g++']
-  #       cmake_build_type: ['Release']
-  #       backend: ['OPENMP']
-  #       # include:
-  #       #   - distro: 'fedora:intel'
-  #       #     cxx: 'icpc'
-  #       #     cmake_build_type: 'Release'
-  #       #     backend: 'OPENMP'
-  #       #   - distro: 'ubuntu:latest'
-  #       #     cxx: 'g++'
-  #       #     cmake_build_type: 'RelWithDebInfo'
-  #       #     backend: 'THREADS'
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: ghcr.io/kokkos/ci-containers/${{ matrix.distro }}
-  #     # see https://github.com/actions/virtual-environments/issues/3812
-  #     options: --security-opt seccomp=unconfined
-  #   steps:
-  #     # - name: Checkout desul
-  #     #   uses: actions/checkout@v2.2.0
-  #     #   with:
-  #     #     repository: desul/desul
-  #     #     ref: 477da9c8f40f8db369c28dd3f93a67e376d8511b
-  #     #     path: desul
-  #     # - name: Install desul
-  #     #   working-directory: desul
-  #     #   run: |
-  #     #     git submodule init
-  #     #     git submodule update
-  #     #     mkdir build
-  #     #     cd build
-  #     #     cmake -DDESUL_ENABLE_TESTS=OFF -DCMAKE_INSTALL_PREFIX=/usr/desul-install ..
-  #     #     sudo cmake --build . --target install --parallel 2
-  #     - name: Checkout code
-  #       uses: actions/checkout@v2.2.0
-  #     # - uses: actions/cache@v2
-  #     #   with:
-  #     #     path: ~/.ccache
-  #     #     key: kokkos-${{ matrix.distro }}-${{ matrix.cxx }}-${{ matrix.cmake_build_type }}-${{ matrix.openmp }}-${github.ref}-${{ github.sha }}
-  #     #     restore-keys: kokkos-${{ matrix.distro }}-${{ matrix.cxx }}-${{ matrix.cmake_build_type }}-${{ matrix.openmp }}-${{github.ref}}
-  #     - name: maybe_disable_death_tests
-  #       if: ${{ matrix.distro == 'fedora:rawhide' }}
-  #       run: echo "GTEST_FILTER=-*DeathTest*" >> $GITHUB_ENV
-  #     - name: maybe_use_external_gtest
-  #       if: ${{ matrix.distro == 'ubuntu:latest' }}
-  #       run: sudo apt-get update && sudo apt-get install -y libgtest-dev
-  #     - name: maybe_install_clang_tidy
-  #       if: ${{ matrix.clang-tidy != '' }}
-  #       run: sudo apt-get update && sudo apt-get install -y clang-tidy
-  #     - name: Configure Kokkos
-  #       run: |
-  #         cmake -B builddir \
-  #           -DCMAKE_INSTALL_PREFIX=/usr \
-  #           ${{ matrix.clang-tidy }} \
-  #           -DKokkos_ARCH_NATIVE=ON \
-  #           -DKokkos_ENABLE_DESUL_ATOMICS_EXTERNAL=OFF \
-  #           -DKokkos_ENABLE_HWLOC=ON \
-  #           -DKokkos_ENABLE_${{ matrix.backend }}=ON \
-  #           -DKokkos_ENABLE_TESTS=ON \
-  #           -DKokkos_ENABLE_BENCHMARKS=ON \
-  #           -DKokkos_ENABLE_EXAMPLES=ON \
-  #           -DKokkos_ENABLE_DEPRECATED_CODE_4=ON \
-  #           -DKokkos_ENABLE_DEPRECATION_WARNINGS=OFF \
-  #           -DCMAKE_CXX_COMPILER=${{ matrix.cxx }} \
-  #           -DCMAKE_BUILD_TYPE=${{ matrix.cmake_build_type }}
-  #     - name: Build
-  #       run: |
-  #         ccache -z
-  #         cmake --build builddir --parallel 8
-  #         ccache -s
-  #     - name: Tests
-  #       working-directory: builddir
-  #       run: ctest --output-on-failure
-  #     - name: Test DESTDIR Install
-  #       run: DESTDIR=${PWD}/install cmake --build builddir --target install && rm -rf ${PWD}/install/usr && rmdir ${PWD}/install
-  #     - name: Install
-  #       run: sudo cmake --build builddir --target install
-  #     - name: Test install
-  #       working-directory: example/build_cmake_installed
-  #       run: |
-  #         cmake -B builddir -DCMAKE_CXX_COMPILER=${{ matrix.cxx }}
-  #         cmake --build builddir
-  #         cmake --build builddir --target test
-  #     - name: Upload benchmark results
-  #       working-directory: builddir
-  #       run : |
-  #         echo "${builddir}"
-
+      - name: analyze benchmark results
+        run: |
+          pwd
+          python3 ./benchmark_monitor.py -d ../benchmark_results -o ../out -sc
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          pwd
+          folder: ../out
