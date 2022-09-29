@@ -13,11 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
       - name: clone benchamrk monitor
         run: |
-          cd ..
           pwd
           ls -la
           git clone https://github.com/bensanmorris/benchmark_monitor.git
