@@ -31,8 +31,8 @@ jobs:
           cd benchmark_monitor
           pwd
           ls -la
-          python3 ./benchmark_monitor.py -d ../benchmark/${{ matrix.directory }} -o out
+          python3 ./benchmark_monitor.py -d ../benchmark/${{ matrix.directory }} -o ../generated_pages
       - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: out
+          folder: generated_pages
