@@ -18,15 +18,18 @@ jobs:
       - name: clone benchamrk monitor
         run: |
           pwd
+          ls -la
           git clone https://github.com/bensanmorris/benchmark_monitor.git
       - name: prepare python env
         run: |
           pwd
+          ls -la
           cd benchmark_monitor
           pip install -r requirements.txt
       - name: analyze benchmark results
         run: |
           pwd
+          ls -la
           python3 ./benchmark_monitor.py -d ../benchmark_results -o ../out -sc
       - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4
