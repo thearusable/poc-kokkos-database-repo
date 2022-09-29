@@ -35,4 +35,4 @@ jobs:
       - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: cd benchmark_monitor/out
+          folder: out
