@@ -1,0 +1,69 @@
+{
+  "context": {
+    "date": "2022-09-15T16:14:00+02:00",
+    "host_name": "macbook-pro.home",
+    "executable": "/Users/arus/NGA/Kokkos/build/kokkos/core/perf_test/KokkosCore_PerformanceTest_SampleBenchmark",
+    "num_cpus": 8,
+    "mhz_per_cpu": 24,
+    "cpu_scaling_enabled": false,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 65536,
+        "num_sharing": 0
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 131072,
+        "num_sharing": 0
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 4194304,
+        "num_sharing": 1
+      }
+    ],
+    "load_avg": [3.70117,2.61572,2.84863],
+    "library_build_type": "release",
+    "Default Device": "N6Kokkos6OpenMPE",
+    "KOKKOS_COMPILER_APPLECC": "6000",
+    "KOKKOS_COMPILER_CLANG": "1406",
+    "KOKKOS_ENABLE_ASM": "no",
+    "KOKKOS_ENABLE_CXX17": "yes",
+    "KOKKOS_ENABLE_CXX20": "no",
+    "KOKKOS_ENABLE_CXX23": "no",
+    "KOKKOS_ENABLE_DEBUG_BOUNDS_CHECK": "yes",
+    "KOKKOS_ENABLE_GNU_ATOMICS": "no",
+    "KOKKOS_ENABLE_HBWSPACE": "no",
+    "KOKKOS_ENABLE_HWLOC": "no",
+    "KOKKOS_ENABLE_INTEL_ATOMICS": "no",
+    "KOKKOS_ENABLE_INTEL_MM_ALLOC": "no",
+    "KOKKOS_ENABLE_LIBDL": "yes",
+    "KOKKOS_ENABLE_LIBRT": "no",
+    "KOKKOS_ENABLE_PRAGMA_IVDEP": "no",
+    "KOKKOS_ENABLE_PRAGMA_LOOPCOUNT": "no",
+    "KOKKOS_ENABLE_PRAGMA_UNROLL": "no",
+    "KOKKOS_ENABLE_PRAGMA_VECTOR": "no",
+    "KOKKOS_ENABLE_WINDOWS_ATOMICS": "no",
+    "Kokkos Version": "3.7.99"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_SomeFunction",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_SomeFunction",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 268848029,
+      "real_time": 2.5478864492532475e-09,
+      "cpu_time": 2.5473350224933211e-09,
+      "time_unit": "s"
+    }
+  ]
+}
